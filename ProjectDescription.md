@@ -2,10 +2,10 @@
 
 ## Theme:
 My final Project will be themed around Winterfell from Game of Thrones.
-The main characture will be Sansa Stark.
+The main character will be Sansa Stark.
 
 ## Classes:
-I will have a class for the player, the side charactures, and for locations.
+I will have a class for the player, the side characters, and for locations.
 
 ## Limited Resource:
 My limited resource will be gold as well as respect. 
