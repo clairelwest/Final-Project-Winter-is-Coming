@@ -15,6 +15,7 @@ Sansa will have an initial treasury ballance and can gain or lose the respect of
 Sansa will have a set number of days before winter comes, and days are spent by traveling or completing tasks.
 
 ## Extra Credit:
+I want to include a smarter bundle planner that will tell the player what still needs to be collected, what is most important to collect, and where to collect it. 
 
 ## Tradeoffs:
 Petyr Baelish will me the "villan" of the game and Sansa can get gold from Petyr, but loses respect when she does this.
