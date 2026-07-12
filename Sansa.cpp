@@ -126,6 +126,8 @@ void Sansa::interactArya()
     if (confirm2 == "yes")
     {
       cout << "Arya: Took you long enough. I'll begin my preperations." << endl;
+      cout << "Respect +1" << endl;
+      respect++;
       killPetyr = true;
     }
     else if (confirm2 == "no")
