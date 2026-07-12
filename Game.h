@@ -1,36 +1,34 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <iostream>
 #include <string>
 #include <vector>
-#ifndef GAME_H
-#define GAME_H
+#include "Sansa.h"
+#include "Character.h"
+#include "Task.h"
+#include "Location.h"
+
 using namespace std;
 
 class Game
 {
 private:
   int currentDay;
-  int mutton;
-  int potatos;
-  int arrows;
-  int firewood;
-  int blankets;
+  int dailyActions;
+  Sansa sansa{1, 60, 0};
+  vector<Location> map;
 
 public:
   Game();
+  Sansa getSansa();
   int getCurrentDay();
+  void changeDay();
   void start();
   void takeTurn();
   void printMap();
   bool isOver();
   void endGame();
-  void getInventory();
-  void getAvailableTask();
-  void getAvailableChar();
-  void addMutton(int m);
-  void addPotatos(int p);
-  void addArrows(int a);
-  void addFirewood(int f);
-  void addBlankets(int b);
 };
 
 #endif

@@ -4,10 +4,30 @@
 #include "Character.h"
 using namespace std;
 
-Character::Character(string n, int mP)
+Character::Character(int i)
 {
-  name = n;
-  mapPosition = mP;
+  index = i;
+  switch (index)
+  {
+  case SANSA:
+    name = "Sansa Stark";
+    break;
+  case BRIENNE:
+    name = "Brienne of Tarth";
+    break;
+  case ARYA:
+    name = "Arya Stark";
+    break;
+  case JON:
+    name = "Jon Snow";
+    break;
+  case PETYR:
+    name = "Petyr Baelish";
+    break;
+  default:
+    name = "";
+    break;
+  }
 }
 
 string Character::getName()
@@ -15,7 +35,7 @@ string Character::getName()
   return name;
 }
 
-int Character::getMapPosition()
+int Character::getIndex()
 {
-  return mapPosition;
+  return index;
 }

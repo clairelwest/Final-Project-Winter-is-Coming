@@ -1,17 +1,24 @@
+#ifndef ASCII_H
+#define ASCII_H
+
 #include <iostream>
 #include <string>
 #include <vector>
-#ifndef ASCII_H
-#define ASCII_H
 using namespace std;
 
 void printMainHeader();
 void printDay(int cD);
 void printWinter();
 void printTraveling();
-void printWinterfell();
-void printTheVillage();
-void printTheWall();
-void printTheVale();
+void printWin();
+void printLoss();
+void printKillPetyr();
+void printPetyrTakeWinterfell();
+string winterfellBanner();
+string theVillageBanner();
+string theWallBanner();
+string theValeBanner();
+void printBrienne();
+void printSansa();
 
 #endif
