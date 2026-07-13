@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include "Sansa.h"
 #include "Character.h"
 #include "Task.h"
@@ -353,13 +354,29 @@ Sansa::Sansa(int r, int g, int mP) : Character(Character::SANSA)
   respect = r;
   gold = g;
   mapPosition = mP;
-  mutton = 0;
-  potatoes = 0;
-  arrows = 0;
-  firewood = 0;
-  blankets = 0;
   killPetyr = false;
   confidencePoints = 4;
+
+  ifstream inFile("Resources.txt");
+  if (!inFile.is_open())
+  {
+    cout << "Error: could not open Resources.txt" << endl;
+  }
+
+  string line;
+  while (getline(inFile, line))
+  {
+    int space1 = line.find(' ');
+    mutton = stoi(line.substr(0, space1));
+    int space2 = line.find(' ', space1 + 1);
+    potatoes = stoi(line.substr(space1 + 1, space2 - space1 - 1));
+    int space3 = line.find(' ', space2 + 1);
+    arrows = stoi(line.substr(space2 + 1, space3 - space2 - 1));
+    int space4 = line.find(' ', space3 + 1);
+    firewood = stoi(line.substr(space3 + 1, space4 - space3 - 1));
+    blankets = stoi(line.substr(space4 + 1));
+  }
+  inFile.close();
 }
 
 int Sansa::chooseAction()
