@@ -21,6 +21,7 @@ private:
   int firewood;
   int blankets;
   bool killPetyr;
+  bool queenInTheNorth;
   int confidencePoints;
   void interactBrienne(int cD);
   void interactArya();
@@ -31,6 +32,10 @@ private:
   void buyFirewood();
   void chopFirewood();
   void inspireConfidence();
+  void intimidateFarmers();
+  void enlistNightsWatch();
+  void tradePotatoes();
+  void hireHunters();
 
 public:
   Sansa(int r, int g, int mP);
@@ -40,13 +45,14 @@ public:
   int getGold();
   int getMapPosition();
   bool getKillPetyr();
+  bool getQueen();
   void addRespect(int cR);
   void addGold(int g);
   bool setMapPosition(int t);
   void printInventory();
   void interact(Character c, int cD);
   void completeTask(Task t);
-  void printStatus();
+  bool printStatus();
   bool bundleComplete();
 };
 

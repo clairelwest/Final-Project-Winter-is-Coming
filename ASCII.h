@@ -20,5 +20,6 @@ string theWallBanner();
 string theValeBanner();
 void printBrienne();
 void printSansa();
+void printTheNorth();
 
 #endif

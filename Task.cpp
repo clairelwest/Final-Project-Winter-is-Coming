@@ -24,6 +24,18 @@ Task::Task(int i)
   case INSPIRECONFIDENCE:
     name = "Inspire Confidence";
     break;
+  case INTIMIDATEFARMERS:
+    name = "Intimidate Farmers";
+    break;
+  case ENLISTNIGHTSWATCH:
+    name = "Enlist Night's Watch";
+    break;
+  case TRADEPOTATOES:
+    name = "Trade Potatoes";
+    break;
+  case HIREHUNTERS:
+    name = "Hire Hunters";
+    break;
   }
 }
 

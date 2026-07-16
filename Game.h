@@ -16,7 +16,7 @@ class Game
 private:
   int currentDay;
   int dailyActions;
-  Sansa sansa{1, 60, 0};
+  Sansa sansa{2, 60, 0};
   vector<Location> map;
 
 public:

@@ -18,6 +18,7 @@ void printMenu()
   3. Complete Task
   4. Talk to Someone
   5. Travel
+  6. Hint
   )";
   cout << "Please select an option: ";
 }
@@ -31,7 +32,7 @@ void travelMenu(vector<Location> map)
   cout << "Please select an option: ";
 }
 
-void Sansa::printStatus()
+bool Sansa::printStatus()
 {
   int muttonNeeded = 50 - mutton;
   if (muttonNeeded < 0)
@@ -67,12 +68,9 @@ void Sansa::printStatus()
   cout << "Blankets Needed: " << blanketsNeeded << endl;
   if (muttonNeeded != 0 || potatoesNeeded != 0 || arrowsNeeded != 0 || firewoodNeeded != 0 || blanketsNeeded != 0)
   {
-    cout << "Brienne: We still have supplies to gather before winter." << endl;
+    return false;
   }
-  else
-  {
-    cout << "Brienne: Excellent work my lady! We are prepared for winter." << endl;
-  }
+  return true;
 }
 
 void Sansa::interactBrienne(int cD)
@@ -95,10 +93,20 @@ void Sansa::interactBrienne(int cD)
   switch (option)
   {
   case 1:
-    printStatus();
+  {
+    bool complete = printStatus();
+    if (complete)
+    {
+      cout << "Brienne: Excellent work my lady! We are prepared for winter." << endl;
+    }
+    else
+    {
+      cout << "Brienne: We still have supplies to gather before winter." << endl;
+    }
     break;
+  }
   case 2:
-    cout << "Brienne: We have " << 9 - cD << " days till winter." << endl;
+    cout << "Brienne: We have " << 10 - cD << " days till winter." << endl;
     break;
   }
 }
@@ -107,7 +115,7 @@ void Sansa::interactArya()
 {
   string confirm;
   cout << "Arya: Hello sister" << endl;
-  cout << "Arya: Do you need help with anything?" << endl;
+  cout << "Arya: Do you need help with anything? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
@@ -117,7 +125,7 @@ void Sansa::interactArya()
   if (confirm == "yes")
   {
     string confirm2;
-    cout << "Arya: Have you decided that Petyr is too dangerous to keep alive after all?" << endl;
+    cout << "Arya: Have you decided that Petyr is too dangerous to keep alive after all? (yes or no)" << endl;
     cin >> confirm2;
     while (confirm2 != "yes" && confirm2 != "no")
     {
@@ -127,8 +135,11 @@ void Sansa::interactArya()
     if (confirm2 == "yes")
     {
       cout << "Arya: Took you long enough. I'll begin my preperations." << endl;
-      cout << "Respect +1" << endl;
-      respect++;
+      if (!killPetyr)
+      {
+        cout << "Respect +1" << endl;
+        respect++;
+      }
       killPetyr = true;
     }
     else if (confirm2 == "no")
@@ -147,7 +158,7 @@ void Sansa::interactJon()
 {
   string confirm;
   cout << "Jon: Hello Sansa!" << endl;
-  cout << "Jon: Do you need anything at Winterfell?" << endl;
+  cout << "Jon: Do you need anything at Winterfell? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
@@ -157,7 +168,7 @@ void Sansa::interactJon()
   if (confirm == "yes")
   {
     string confirm2;
-    cout << "Jon: Will you be needing more arrows for winter?" << endl;
+    cout << "Jon: Will you be needing more arrows for winter? (yes or no)" << endl;
     cin >> confirm2;
     while (confirm2 != "yes" && confirm2 != "no")
     {
@@ -166,11 +177,21 @@ void Sansa::interactJon()
     }
     if (confirm2 == "yes")
     {
-      cout << "Jon: I'll give you all that I can spare." << endl;
-      cout << "Jon: Oh and Sansa, make sure you're carefull aroud Petyr, you know he wants control of Winterfell." << endl;
-      cout << "Jon: I'll be off then, take care sister." << endl;
-      arrows += 100;
-      cout << "Arrows +100" << endl;
+      if (arrows == 0)
+      {
+        cout << "Jon: I'll give you all that I can spare." << endl;
+        cout << "Jon: Oh and Sansa, make sure you're carefull aroud Petyr, you know he wants control of Winterfell." << endl;
+        cout << "Jon: I'll be off then, take care sister." << endl;
+        arrows += 100;
+        cout << "Arrows +100" << endl;
+      }
+      else
+      {
+        cout << "Jon: We are running low, but I see what I can do." << endl;
+        cout << "Jon: I'll be off then, take care sister." << endl;
+        cout << "Arrows +20" << endl;
+        arrows += 20;
+      }
     }
     else if (confirm2 == "no")
     {
@@ -189,7 +210,7 @@ void Sansa::interactPetyr()
 {
   string confirm;
   cout << "Petyr: Hello Sansa dear." << endl;
-  cout << "Petyr: Is there somthing I can do to be of service?" << endl;
+  cout << "Petyr: Is there somthing I can do to be of service? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
@@ -222,10 +243,11 @@ void Sansa::interactPetyr()
       cout << "Petyr: It's a pity Winterfell has been so depleted. I would do anything to see it restored." << endl;
       cout << "Sansa: Winterfell is doing well, our need is merely due to winters swift and unexpected aproach." << endl;
       cout << "Petyr: I mean no offense my dear." << endl;
-      gold += 50;
+      gold += 60;
       respect -= 2;
-      cout << "Gold +50" << endl;
+      cout << "Gold +60" << endl;
       cout << "Respect -2" << endl;
+      queenInTheNorth = false;
     }
   }
   else if (confirm == "no")
@@ -238,20 +260,21 @@ void Sansa::interactPetyr()
 void Sansa::buyMutton()
 {
   string confirm;
-  cout << "Do you wish to purchase 25 mutton for 20 gold?" << endl;
+  cout << "Do you wish to purchase 20 mutton for 20 gold? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
     cout << "A yes or no please." << endl;
     cin >> confirm;
   }
+  cout << endl;
   if (confirm == "yes")
   {
     if (gold >= 20)
     {
-      cout << "Mutton +25" << endl;
+      cout << "Mutton +20" << endl;
       cout << "Gold -20" << endl;
-      mutton += 25;
+      mutton += 20;
       gold -= 20;
     }
     else
@@ -264,21 +287,22 @@ void Sansa::buyMutton()
 void Sansa::buyPotatoes()
 {
   string confirm;
-  cout << "Do you wish to purchase 25 potatoes for 15 gold?" << endl;
+  cout << "Do you wish to purchase 20 potatoes for 10 gold? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
     cout << "A yes or no please." << endl;
     cin >> confirm;
   }
+  cout << endl;
   if (confirm == "yes")
   {
-    if (gold >= 15)
+    if (gold >= 10)
     {
-      cout << "Potatoes +25" << endl;
-      cout << "Gold -15" << endl;
-      potatoes += 25;
-      gold -= 15;
+      cout << "Potatoes +20" << endl;
+      cout << "Gold -10" << endl;
+      potatoes += 20;
+      gold -= 10;
     }
     else
     {
@@ -290,21 +314,22 @@ void Sansa::buyPotatoes()
 void Sansa::buyFirewood()
 {
   string confirm;
-  cout << "Do you wish to purchase 50 firewood for 25 gold?" << endl;
+  cout << "Do you wish to purchase 40 firewood for 20 gold? (yes or no)" << endl;
   cin >> confirm;
   while (confirm != "yes" && confirm != "no")
   {
     cout << "A yes or no please." << endl;
     cin >> confirm;
   }
+  cout << endl;
   if (confirm == "yes")
   {
-    if (gold >= 25)
+    if (gold >= 20)
     {
-      cout << "Firewood +50" << endl;
-      cout << "Gold -25" << endl;
-      firewood += 50;
-      gold -= 25;
+      cout << "Firewood +40" << endl;
+      cout << "Gold -20" << endl;
+      firewood += 40;
+      gold -= 20;
     }
     else
     {
@@ -318,8 +343,8 @@ void Sansa::chopFirewood()
   cout << "===============" << endl;
   cout << "Chopping Firewood..." << endl;
   cout << "===============" << endl;
-  firewood += 10;
-  cout << "Firewood +10" << endl;
+  firewood += 20;
+  cout << "Firewood +20" << endl;
 }
 
 void Sansa::inspireConfidence()
@@ -327,25 +352,194 @@ void Sansa::inspireConfidence()
   confidencePoints--;
   if (confidencePoints > 0)
   {
-    printSansa();
-    respect++;
-    if (confidencePoints == 3)
-    {
-      cout << "= Sansa has given food to the poor =" << endl;
-    }
     if (confidencePoints == 2)
     {
-      cout << "= Sansa has given toys to the children =" << endl;
+      string confirm;
+      cout << "Do you wish to use 10 firewood for repairs? (yes or no)" << endl;
+      cin >> confirm;
+      while (confirm != "yes" && confirm != "no")
+      {
+        cout << "A yes or no please." << endl;
+        cin >> confirm;
+      }
+      cout << endl;
+      if (confirm == "yes")
+      {
+        if (firewood >= 10)
+        {
+          printSansa();
+          cout << "= Sansa has comissioned repairs =" << endl;
+          respect++;
+          cout << "Respect +1" << endl;
+          cout << "Firewood -10" << endl;
+          firewood -= 10;
+        }
+        else
+        {
+          cout << "You do not have enough firewood for this." << endl;
+        }
+      }
     }
     if (confidencePoints == 1)
     {
-      cout << "= Sansa has comissioned repairs =" << endl;
+      string confirm;
+      cout << "Do you wish to use 10 mutton/potatoes to feed the poor? (yes or no)" << endl;
+      cin >> confirm;
+      while (confirm != "yes" && confirm != "no")
+      {
+        cout << "A yes or no please." << endl;
+        cin >> confirm;
+      }
+      cout << endl;
+      if (confirm == "yes")
+      {
+        int confirm2;
+        cout << "1. Give Mutton" << endl;
+        cout << "2. Give Potatoes" << endl;
+        cout << "Please select an option: ";
+        cin >> confirm2;
+        while (confirm2 != 1 && confirm2 != 2)
+        {
+          cout << "Please select a vaild option: ";
+          cin >> confirm2;
+        }
+        cout << endl;
+        if (confirm2 == 1)
+        {
+          if (mutton >= 10)
+          {
+            printSansa();
+            cout << "= Sansa has given mutton to the poor =" << endl;
+            respect++;
+            cout << "Respect +1" << endl;
+            cout << "Mutton -10" << endl;
+            mutton -= 10;
+          }
+          else
+          {
+            cout << "You do not have enough mutton for this." << endl;
+          }
+        }
+        else if (confirm2 == 2)
+        {
+          if (potatoes >= 10)
+          {
+            printSansa();
+            cout << "= Sansa has given potatoes to the poor =" << endl;
+            respect++;
+            cout << "Respect +1" << endl;
+            cout << "Potatoes -10" << endl;
+            potatoes -= 10;
+          }
+          else
+          {
+            cout << "You do not have enough potatoes for this." << endl;
+          }
+        }
+      }
     }
-    cout << "Respect +1" << endl;
   }
   else
   {
     cout << "There is nothing more Sansa can do to inspire confidence." << endl;
+  }
+}
+
+void Sansa::intimidateFarmers()
+{
+  string confirm;
+  cout << "Do you wish to lose respect to gain 30 potatoes? (yes or no)" << endl;
+  cin >> confirm;
+  while (confirm != "yes" && confirm != "no")
+  {
+    cout << "A yes or no please." << endl;
+    cin >> confirm;
+  }
+  cout << endl;
+  if (confirm == "yes")
+  {
+    cout << "= Sansa increases farm production through fear =" << endl;
+    cout << "Potatoes +30" << endl;
+    cout << "Respect -1" << endl;
+    potatoes += 30;
+    respect--;
+  }
+}
+
+void Sansa::enlistNightsWatch()
+{
+  string confirm;
+  cout << "Do you wish to lose respect to gain 40 firewood? (yes or no)" << endl;
+  cin >> confirm;
+  while (confirm != "yes" && confirm != "no")
+  {
+    cout << "A yes or no please." << endl;
+    cin >> confirm;
+  }
+  cout << endl;
+  if (confirm == "yes")
+  {
+    cout << "= Sansa orders the Night's Watch to chop wood =" << endl;
+    cout << "Firewood +40" << endl;
+    cout << "Respect -1" << endl;
+    firewood += 40;
+    respect--;
+  }
+}
+
+void Sansa::tradePotatoes()
+{
+  string confirm;
+  cout << "Do you wish to trade 20 potatoes for 10 mutton? (yes or no)" << endl;
+  cin >> confirm;
+  while (confirm != "yes" && confirm != "no")
+  {
+    cout << "A yes or no please." << endl;
+    cin >> confirm;
+  }
+  cout << endl;
+  if (confirm == "yes")
+  {
+    if (potatoes >= 20)
+    {
+      cout << "= Sansa exchanges potatoes for mutton =" << endl;
+      cout << "Mutton +10" << endl;
+      cout << "Potatoes -20" << endl;
+      mutton += 10;
+      potatoes -= 20;
+    }
+    else
+    {
+      cout << "You do not have enough potatoes for this." << endl;
+    }
+  }
+}
+
+void Sansa::hireHunters()
+{
+  string confirm;
+  cout << "Do you wish to trade 20 arrows for 20 mutton? (yes or no)" << endl;
+  cin >> confirm;
+  while (confirm != "yes" && confirm != "no")
+  {
+    cout << "A yes or no please." << endl;
+    cin >> confirm;
+  }
+  cout << endl;
+  if (confirm == "yes")
+  {
+    if (arrows >= 20)
+    {
+      cout << "= Sansa exchanges arrows for mutton =" << endl;
+      cout << "Mutton +20" << endl;
+      cout << "Arrows -20" << endl;
+      mutton += 20;
+      arrows -= 20;
+    }
+    else
+    {
+      cout << "You do not have enough arrows for this." << endl;
+    }
   }
 }
 
@@ -354,29 +548,14 @@ Sansa::Sansa(int r, int g, int mP) : Character(Character::SANSA)
   respect = r;
   gold = g;
   mapPosition = mP;
+  mutton = 0;
+  potatoes = 0;
+  arrows = 0;
+  firewood = 0;
+  blankets = 0;
   killPetyr = false;
-  confidencePoints = 4;
-
-  ifstream inFile("Resources.txt");
-  if (!inFile.is_open())
-  {
-    cout << "Error: could not open Resources.txt" << endl;
-  }
-
-  string line;
-  while (getline(inFile, line))
-  {
-    int space1 = line.find(' ');
-    mutton = stoi(line.substr(0, space1));
-    int space2 = line.find(' ', space1 + 1);
-    potatoes = stoi(line.substr(space1 + 1, space2 - space1 - 1));
-    int space3 = line.find(' ', space2 + 1);
-    arrows = stoi(line.substr(space2 + 1, space3 - space2 - 1));
-    int space4 = line.find(' ', space3 + 1);
-    firewood = stoi(line.substr(space3 + 1, space4 - space3 - 1));
-    blankets = stoi(line.substr(space4 + 1));
-  }
-  inFile.close();
+  queenInTheNorth = true;
+  confidencePoints = 3;
 }
 
 int Sansa::chooseAction()
@@ -386,7 +565,7 @@ int Sansa::chooseAction()
   {
     printMenu();
     cin >> option;
-  } while (option < 1 || option > 5);
+  } while (option < 1 || option > 6);
   cout << endl;
   return option;
 }
@@ -422,6 +601,11 @@ int Sansa::getMapPosition()
 bool Sansa::getKillPetyr()
 {
   return killPetyr;
+}
+
+bool Sansa::getQueen()
+{
+  return queenInTheNorth;
 }
 
 void Sansa::addRespect(int cR)
@@ -487,8 +671,20 @@ void Sansa::completeTask(Task t)
   case 3: // CHOPFIREWOOD
     chopFirewood();
     break;
-  case 4: // Inspire Confidence
+  case 4: // INSPIRECONFIDENCE
     inspireConfidence();
+    break;
+  case 5: // INTIMIDATEFARMERS
+    intimidateFarmers();
+    break;
+  case 6: // ENLISTNIGHTSWATCH
+    enlistNightsWatch();
+    break;
+  case 7: // TRADEPOTATOES
+    tradePotatoes();
+    break;
+  case 8: // HIREHUNTERS
+    hireHunters();
     break;
   }
 }
