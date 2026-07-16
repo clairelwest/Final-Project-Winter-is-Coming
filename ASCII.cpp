@@ -5,6 +5,8 @@
 #include "Game.h"
 using namespace std;
 
+// This file contains functions that print banners and ASCII art througout the game
+
 void printMainHeader()
 {
   cout << R"(

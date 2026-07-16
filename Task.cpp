@@ -4,7 +4,7 @@
 #include "Task.h"
 using namespace std;
 
-Task::Task(int i)
+Task::Task(int i) // Task constructor
 {
   index = i;
   switch (index)

@@ -8,14 +8,14 @@ using namespace std;
 int main()
 {
   Game game;
-  game.start();
+  game.start(); // Runs the game intro
 
-  while (!game.isOver())
+  while (!game.isOver()) // Continues taking turns while the game is not over
   {
     game.takeTurn();
   }
 
-  game.endGame();
+  game.endGame(); // Checks conditions and displays appropriate ending
 
   return 0;
 }

@@ -18,7 +18,7 @@ constexpr int TALK_TO_SOMEONE = 4;
 constexpr int TRAVEL = 5;
 constexpr int HINT = 6;
 
-void introduceBrienne()
+void introduceBrienne() // Runs as part of the game intro
 {
   printBrienne();
   cout << "Brienne: Hello my lady" << endl;
@@ -34,7 +34,7 @@ void introduceBrienne()
   cout << "Brienne: If you have any questions you can always come to me!" << endl;
 }
 
-void intro()
+void intro() // Game intro
 {
   printMainHeader();
   cout << winterfellBanner();
@@ -63,7 +63,7 @@ void intro()
   cout << "Sansa: I should start my day by checking in with my advisor Brienne of Tarth." << endl;
 }
 
-Game::Game()
+Game::Game() // Game class constructor creates map vector and location objects and establishes the tasks and characters at each location
 {
   currentDay = 1;
   dailyActions = 2;
@@ -84,7 +84,7 @@ int Game::getCurrentDay()
   return currentDay;
 }
 
-void Game::changeDay()
+void Game::changeDay() // Runs after Sansa has used all her daily actions
 {
   currentDay++;
   printDay(currentDay);
@@ -96,7 +96,7 @@ void Game::changeDay()
   cout << "=== Respect: " << sansa.getRespect() << "/4 ===" << endl;
 }
 
-void Game::start()
+void Game::start() // Game intro
 {
   intro();
   printDay(currentDay);
@@ -117,7 +117,7 @@ void Game::printMap()
   cout << "Currrent Location: " << map[sansa.getMapPosition()].getName() << endl;
 }
 
-void Game::takeTurn()
+void Game::takeTurn() // Calls Sansas functions according to the option the player selected and checks if the day is over
 {
   switch (sansa.chooseAction())
   {
@@ -165,12 +165,12 @@ void Game::takeTurn()
   }
 }
 
-bool Game::isOver()
+bool Game::isOver() // Checks if the game has ended
 {
   return (currentDay >= 11 || sansa.getRespect() < 0 || sansa.bundleComplete());
 }
 
-void Game::endGame()
+void Game::endGame() // Displays the game results
 {
   printWinter();
   sansa.printStatus();

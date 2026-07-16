@@ -7,7 +7,7 @@
 #include "Character.h"
 using namespace std;
 
-Location::Location(string n, string b, vector<Character> r, vector<Task> t)
+Location::Location(string n, string b, vector<Character> r, vector<Task> t) // Location constructor
 {
   name = n;
   banner = b;
@@ -34,7 +34,7 @@ vector<Task> Location::getTasks()
   return tasks;
 }
 
-optional<Character> Location::talkTo()
+optional<Character> Location::talkTo() // Displays the characters that you can interact with in Sansa's current location
 {
   if (residents.empty())
   {
@@ -56,7 +56,7 @@ optional<Character> Location::talkTo()
   return residents[option - 1];
 }
 
-Task Location::findTask()
+Task Location::findTask() // Displays the availible tasks in Sansa's current location
 {
   int option = 0;
   cout << "You can:" << endl;

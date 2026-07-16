@@ -10,7 +10,7 @@
 #include "Location.h"
 using namespace std;
 
-void printMenu()
+void printMenu() // Prints the turn menu
 {
   cout << R"(
   1. Check Inventory
@@ -23,7 +23,7 @@ void printMenu()
   cout << "Please select an option: ";
 }
 
-void travelMenu(vector<Location> map)
+void travelMenu(vector<Location> map) // Prints the travel menu
 {
   for (int i = 0; i < static_cast<int>(map.size()); i++)
   {
@@ -32,7 +32,7 @@ void travelMenu(vector<Location> map)
   cout << "Please select an option: ";
 }
 
-bool Sansa::printStatus()
+bool Sansa::printStatus() // Tells the play what still needs to be gathered
 {
   int muttonNeeded = 50 - mutton;
   if (muttonNeeded < 0)
@@ -73,7 +73,7 @@ bool Sansa::printStatus()
   return true;
 }
 
-void Sansa::interactBrienne(int cD)
+void Sansa::interactBrienne(int cD) // Runs when sansa talks to Brienne
 {
   printBrienne();
   cout << "Brienne: Good day my lady!" << endl;
@@ -111,7 +111,7 @@ void Sansa::interactBrienne(int cD)
   }
 }
 
-void Sansa::interactArya()
+void Sansa::interactArya() // Runs when sansa talks to Arya
 {
   string confirm;
   cout << "Arya: Hello sister" << endl;
@@ -154,7 +154,7 @@ void Sansa::interactArya()
   }
 }
 
-void Sansa::interactJon()
+void Sansa::interactJon() // Runs when sansa talks to Jon
 {
   string confirm;
   cout << "Jon: Hello Sansa!" << endl;
@@ -206,7 +206,7 @@ void Sansa::interactJon()
   }
 }
 
-void Sansa::interactPetyr()
+void Sansa::interactPetyr() // Runs when Sansa talks to Petyr
 {
   string confirm;
   cout << "Petyr: Hello Sansa dear." << endl;
@@ -257,7 +257,7 @@ void Sansa::interactPetyr()
   }
 }
 
-void Sansa::buyMutton()
+void Sansa::buyMutton() // Sansa loses gold and gains mutton
 {
   string confirm;
   cout << "Do you wish to purchase 20 mutton for 20 gold? (yes or no)" << endl;
@@ -284,7 +284,7 @@ void Sansa::buyMutton()
   }
 }
 
-void Sansa::buyPotatoes()
+void Sansa::buyPotatoes() // Sansa loses gold and gains potatoes
 {
   string confirm;
   cout << "Do you wish to purchase 20 potatoes for 10 gold? (yes or no)" << endl;
@@ -311,7 +311,7 @@ void Sansa::buyPotatoes()
   }
 }
 
-void Sansa::buyFirewood()
+void Sansa::buyFirewood() // Sansa loses gold and gains firewood
 {
   string confirm;
   cout << "Do you wish to purchase 40 firewood for 20 gold? (yes or no)" << endl;
@@ -338,7 +338,7 @@ void Sansa::buyFirewood()
   }
 }
 
-void Sansa::chopFirewood()
+void Sansa::chopFirewood() // Sansa gains a smaller amount of firewood
 {
   cout << "===============" << endl;
   cout << "Chopping Firewood..." << endl;
@@ -347,7 +347,7 @@ void Sansa::chopFirewood()
   cout << "Firewood +20" << endl;
 }
 
-void Sansa::inspireConfidence()
+void Sansa::inspireConfidence() // Sansa loses firewood/mutton/potatoes and gain respect
 {
   confidencePoints--;
   if (confidencePoints > 0)
@@ -445,7 +445,7 @@ void Sansa::inspireConfidence()
   }
 }
 
-void Sansa::intimidateFarmers()
+void Sansa::intimidateFarmers() // Sansa loses respect and gains potatoes
 {
   string confirm;
   cout << "Do you wish to lose respect to gain 30 potatoes? (yes or no)" << endl;
@@ -466,7 +466,7 @@ void Sansa::intimidateFarmers()
   }
 }
 
-void Sansa::enlistNightsWatch()
+void Sansa::enlistNightsWatch() // Sansa loses respect and gains firewood
 {
   string confirm;
   cout << "Do you wish to lose respect to gain 40 firewood? (yes or no)" << endl;
@@ -487,7 +487,7 @@ void Sansa::enlistNightsWatch()
   }
 }
 
-void Sansa::tradePotatoes()
+void Sansa::tradePotatoes() // Sansa loses potatoes and gains mutton
 {
   string confirm;
   cout << "Do you wish to trade 20 potatoes for 10 mutton? (yes or no)" << endl;
@@ -515,7 +515,7 @@ void Sansa::tradePotatoes()
   }
 }
 
-void Sansa::hireHunters()
+void Sansa::hireHunters() // Sansa loses arrows and gains mutton
 {
   string confirm;
   cout << "Do you wish to trade 20 arrows for 20 mutton? (yes or no)" << endl;
@@ -543,7 +543,7 @@ void Sansa::hireHunters()
   }
 }
 
-Sansa::Sansa(int r, int g, int mP) : Character(Character::SANSA)
+Sansa::Sansa(int r, int g, int mP) : Character(Character::SANSA) // Sansa constructor
 {
   respect = r;
   gold = g;
@@ -558,7 +558,7 @@ Sansa::Sansa(int r, int g, int mP) : Character(Character::SANSA)
   confidencePoints = 3;
 }
 
-int Sansa::chooseAction()
+int Sansa::chooseAction() // Runs the menu for taking turns
 {
   int option = 0;
   do
@@ -570,7 +570,7 @@ int Sansa::chooseAction()
   return option;
 }
 
-void Sansa::travel(vector<Location> map)
+void Sansa::travel(vector<Location> map) // Allows sansa to travel
 {
   int travelOption = 0;
   while (travelOption < 1 || travelOption > 4)
@@ -689,7 +689,7 @@ void Sansa::completeTask(Task t)
   }
 }
 
-bool Sansa::bundleComplete()
+bool Sansa::bundleComplete() // Checks if Sansa has all supplies
 {
   if (mutton >= 50 && potatoes >= 50 && arrows >= 100 && firewood >= 100 && blankets >= 20)
   {
